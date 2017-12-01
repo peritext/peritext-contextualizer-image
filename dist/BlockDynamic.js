@@ -1,27 +1,38 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (_ref) {
+var BlockDynamic = function BlockDynamic(_ref, _ref2) {
   var resource = _ref.resource;
+  var _ref2$datasets = _ref2.datasets,
+      datasets = _ref2$datasets === undefined ? {} : _ref2$datasets;
 
-  // future-proofing possible externally linked images
-  var src = resource.data.base64 || resource.data.src || resource.data.url;
-  return _react2.default.createElement(
-    "figure",
+  var dataset = datasets[resource.data.imageDataset];
+  return dataset ? _react2.default.createElement(
+    'figure',
     {
-      className: "peritext-contextualization peritext-contextualization-block peritext-contextualization-web peritext-contextualizer-image"
+      className: 'peritext-contextualization peritext-contextualization-block peritext-contextualization-web peritext-contextualizer-image'
     },
-    _react2.default.createElement("img", {
-      src: src
+    _react2.default.createElement('img', {
+      src: dataset.uri
     })
-  );
+  ) : null;
 };
+
+BlockDynamic.contextTypes = {
+  datasets: _propTypes2.default.object
+};
+
+exports.default = BlockDynamic;
