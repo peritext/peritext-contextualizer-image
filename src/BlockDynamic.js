@@ -1,17 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({
+const BlockDynamic = ({
   resource
+}, {
+  datasets = {}
 }) => {
-  // future-proofing possible externally linked images
-  const src = resource.data.base64 || resource.data.src || resource.data.url;
-  return (
+  const dataset = datasets[resource.data.imageDataset];
+  return dataset ? (
   <figure
       className="peritext-contextualization peritext-contextualization-block peritext-contextualization-web peritext-contextualizer-image"
   >
     <img 
-      src={src} 
+      src={dataset.uri} 
     />
   </figure>
-  );
+  ) : null;
+};
+
+BlockDynamic.contextTypes = {
+  datasets: PropTypes.object,
 }
+
+export default BlockDynamic;
