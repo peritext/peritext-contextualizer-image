@@ -3,72 +3,76 @@ import PropTypes from 'prop-types';
 
 import meta from './meta';
 import { chooseAppropriateSubAsset } from 'peritext-utils';
-import DynamicBlock from './DynamicImagesBlock';
+import DynamicInline from './DynamicImagesInline';
 
-const Block = ( {
+const Inline = ( {
   resource,
 
   renderingMode = 'screened',
 
   assets = {},
 
+  children,
+  contextualizer = {},
+
   /*
-   * contextualizer,
    * contextualization,
    */
 }, {
  } ) => {
-
+   const {
+     parameters = {}
+   } = contextualizer;
+   const {
+     showOnlyFirstImage = false
+   } = parameters;
   switch ( renderingMode ) {
     case 'screened':
       const getAppropriateAssetUri = ( img ) => {
-        const appropriateAsset = chooseAppropriateSubAsset( img, meta.profile.block.assetPickingRules.image[renderingMode], assets );
+        const appropriateAsset = chooseAppropriateSubAsset( img, meta.profile.inline.assetPickingRules.image[renderingMode], assets );
         if ( appropriateAsset ) {
           return appropriateAsset.asset.data;
         }
       };
+      console.log('render dynamic inline')
       return (
-        <DynamicBlock
+        <DynamicInline
           getAppropriateAssetUri={ getAppropriateAssetUri }
           resource={ resource }
+          contextualizer={contextualizer}
         />
       );
     default:
       return (
-        <div className={ 'static-images-container block' }>
+        <span className={ 'static-images-container inline' }>
           {
-            resource.data.images.map( ( img, index ) => {
-              const appropriateAsset = chooseAppropriateSubAsset( img, meta.profile.block.assetPickingRules.image[renderingMode], assets );
+            (showOnlyFirstImage && resource.data.images.length ? [resource.data.images[0]] : resource.data.images)
+            .map( ( img, index ) => {
+              const appropriateAsset = chooseAppropriateSubAsset( img, meta.profile.inline.assetPickingRules.image[renderingMode], assets );
               if ( appropriateAsset ) {
                 const imageAssetUri = appropriateAsset.asset.data;
                 return (
-                  <div
+                  <span
                     key={ index }
-                    className={ 'specific-image-container' }
+                    className={ 'specific-image-container inline-images-container' }
                   >
                     <img
                       src={ imageAssetUri }
-
                     />
-                    {
-                      img.caption &&
-                      <figcaption className={ 'image-specific-caption' }>
-                        {img.caption}
-                      </figcaption>
-                    }
-                  </div>
+                    {children}
+                  </span>
                 );
               }
               return null;
             } )
           }
-        </div>
+        </span>
       );
   }
 };
 
-Block.contextTypes = {
+Inline.contextTypes = {
   productionAssets: PropTypes.object,
 };
 
-export default Block;
+export default Inline;

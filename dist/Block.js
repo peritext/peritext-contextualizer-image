@@ -44,7 +44,7 @@ const Block = ({
 
     default:
       return _react.default.createElement("div", {
-        className: 'static-images-container'
+        className: 'static-images-container block'
       }, resource.data.images.map((img, index) => {
         const appropriateAsset = (0, _peritextUtils.chooseAppropriateSubAsset)(img, _meta.default.profile.block.assetPickingRules.image[renderingMode], assets);
 
