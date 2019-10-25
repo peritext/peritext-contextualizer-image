@@ -34,7 +34,6 @@ const Inline = ( {
           return appropriateAsset.asset.data;
         }
       };
-      console.log('render dynamic inline')
       return (
         <DynamicInline
           getAppropriateAssetUri={ getAppropriateAssetUri }

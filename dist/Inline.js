@@ -45,7 +45,6 @@ const Inline = ({
         }
       };
 
-      console.log('render dynamic inline');
       return _react.default.createElement(_DynamicImagesInline.default, {
         getAppropriateAssetUri: getAppropriateAssetUri,
         resource: resource,
