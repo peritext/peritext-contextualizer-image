@@ -22,7 +22,8 @@ const Inline = ({
   renderingMode = 'screened',
   assets = {},
   children,
-  contextualizer = {}
+  contextualizer = {},
+  contextualization
   /*
    * contextualization,
    */
@@ -61,7 +62,8 @@ const Inline = ({
           const imageAssetUri = appropriateAsset.asset.data;
           return _react.default.createElement("span", {
             key: index,
-            className: 'specific-image-container inline-images-container'
+            className: 'specific-image-container inline-images-container',
+            id: `figure-pointer-${contextualization.id}`
           }, _react.default.createElement("img", {
             src: imageAssetUri
           }), children);

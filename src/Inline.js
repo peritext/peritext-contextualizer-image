@@ -14,6 +14,7 @@ const Inline = ( {
 
   children,
   contextualizer = {},
+  contextualization,
 
   /*
    * contextualization,
@@ -54,6 +55,7 @@ const Inline = ( {
                   <span
                     key={ index }
                     className={ 'specific-image-container inline-images-container' }
+                    id={`figure-pointer-${contextualization.id}`}
                   >
                     <img
                       src={ imageAssetUri }
