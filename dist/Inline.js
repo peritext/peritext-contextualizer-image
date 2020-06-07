@@ -60,10 +60,11 @@ const Inline = ({
 
         if (appropriateAsset) {
           const imageAssetUri = appropriateAsset.asset.data;
-          return _react.default.createElement("span", {
+          return _react.default.createElement("a", {
             key: index,
             className: 'specific-image-container inline-images-container',
-            id: `figure-pointer-${contextualization.id}`
+            id: `figure-pointer-${contextualization.id}`,
+            href: `#end-figure-container-${contextualization.id}`
           }, _react.default.createElement("img", {
             src: imageAssetUri
           }), children);

@@ -52,16 +52,17 @@ const Inline = ( {
               if ( appropriateAsset ) {
                 const imageAssetUri = appropriateAsset.asset.data;
                 return (
-                  <span
+                  <a
                     key={ index }
                     className={ 'specific-image-container inline-images-container' }
                     id={`figure-pointer-${contextualization.id}`}
+                    href={`#end-figure-container-${contextualization.id}`}
                   >
                     <img
                       src={ imageAssetUri }
                     />
                     {children}
-                  </span>
+                  </a>
                 );
               }
               return null;
