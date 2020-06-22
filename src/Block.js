@@ -35,7 +35,7 @@ const Block = ( {
       );
     default:
       return (
-        <div className={ 'static-images-container block' }>
+        <div className={ `static-images-container block ${resource.data.images.length > 1 ? 'multiple-images': 'single-image'}` }>
           {
             resource.data.images.map( ( img, index ) => {
               const appropriateAsset = chooseAppropriateSubAsset( img, meta.profile.block.assetPickingRules.image[renderingMode], assets );
