@@ -83,9 +83,13 @@ class Block extends _react.Component {
       onCloseLightBox,
       setCurrentImage
     } = this;
+    const defaultCaption = `${resource.metadata.title}${resource.metadata.authors && resource.metadata.authors.length ? '. ' + resource.metadata.authors.map(({
+      family,
+      given
+    }) => `${given} ${family}`).join(', ') : ''}${resource.metadata.source ? '. Source : ' + resource.metadata.source : ''}${resource.metadata.description ? '. ' + resource.metadata.description : ''}`;
     const images = resource.data && resource.data.images && resource.data.images.map(image => getAppropriateAssetUri(image)).map((src, imageIndex) => ({
       src,
-      caption: resource.data.images[imageIndex].caption,
+      caption: resource.data.images[imageIndex].caption || defaultCaption,
       alt: resource.data.images[imageIndex].caption
     })).filter(i => i.src);
     return inBrowser ? _react.default.createElement("figure", null, images.length > 0 && _react.default.createElement("img", {

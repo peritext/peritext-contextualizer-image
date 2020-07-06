@@ -1,6 +1,6 @@
 {
   "name": "peritext-contextualizer-image",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Peritext default image contextualizer",
   "main": "dist/index.js",
   "scripts": {

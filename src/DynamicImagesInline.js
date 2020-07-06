@@ -70,13 +70,23 @@ class Inline extends Component {
       setCurrentImage,
     } = this;
 
+    const defaultCaption = `${resource.metadata.title}${
+      resource.metadata.authors && resource.metadata.authors.length ? 
+      '. ' + resource.metadata.authors.map(({family, given}) => `${given} ${family}`).join(', ')
+      : ''
+    }${
+      resource.metadata.source ? '. Source : ' + resource.metadata.source : ''
+    }${
+      resource.metadata.description ? '. ' + resource.metadata.description : ''
+  }`
+
     let images = resource.data
                   && resource.data.images
                   && resource.data.images
                   .map( ( image ) => getAppropriateAssetUri( image ) )
                   .map( ( src, imageIndex ) => ( {
                     src,
-                    caption: resource.data.images[imageIndex].caption,
+                    caption: resource.data.images[imageIndex].caption || defaultCaption,
                     alt: resource.data.images[imageIndex].caption
                   } ) )
                   .filter( ( i ) => i.src );
